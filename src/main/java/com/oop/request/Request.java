@@ -3,7 +3,7 @@ package com.oop.request;
 import lombok.Data;
 
 @Data
-public class SearchRequest {
+public class Request {
 	private String planName;
 	private String planStatus;
 

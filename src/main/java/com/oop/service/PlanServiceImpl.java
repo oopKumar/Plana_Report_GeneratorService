@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.oop.repository.PlanRepository;
 import com.oop.entity.Plan;
-import com.oop.request.SearchRequest;
-import com.oop.response.SearchResponse;
+import com.oop.request.Request;
+import com.oop.response.Response;
 
 @Service
 public class PlanServiceImpl implements PlanService{
@@ -29,7 +29,7 @@ public class PlanServiceImpl implements PlanService{
 		return planRepo.findPlanStatus();
 	}
 	
-	public List<SearchResponse> search(SearchRequest request) {
+	public List<Response> search(Request request) {
 
 		
 		Plan query = new Plan();
@@ -44,12 +44,12 @@ public class PlanServiceImpl implements PlanService{
 			query.setPlanStatus(planStatus);
 		}
 		
-		List<SearchResponse> response = new ArrayList<>();
+		List<Response> response = new ArrayList<>();
 
 		List<Plan> plan = planRepo.findAll();
 		for(Plan plan2:plan)
 		{
-			SearchResponse sresponse = new SearchResponse();
+			Response sresponse = new Response();
 			sresponse.setName(plan2.getName());
 			sresponse.setMobile(plan2.getMobile());
 			sresponse.setEmail(plan2.getEmail());

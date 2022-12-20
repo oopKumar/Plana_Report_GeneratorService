@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oop.request.SearchRequest;
-import com.oop.response.SearchResponse;
+import com.oop.request.Request;
+import com.oop.response.Response;
 import com.oop.service.PlanService;
 
 @RestController
@@ -32,8 +32,8 @@ public class PlanController {
 	}
 	
 	@PostMapping("/search")
-	public ResponseEntity<List<SearchResponse>> search(@RequestBody SearchRequest request) {
-		List<SearchResponse> response = planService.search(request);
+	public ResponseEntity<List<Response>> search(@RequestBody Request request) {
+		List<Response> response = planService.search(request);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	

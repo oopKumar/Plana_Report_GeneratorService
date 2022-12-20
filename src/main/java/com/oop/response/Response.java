@@ -2,7 +2,7 @@ package com.oop.response;
 import lombok.Data;
 
 @Data
-public class SearchResponse {
+public class Response {
 	private String name;
 	private Long mobile;
 	private String email;
