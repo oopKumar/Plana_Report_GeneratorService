@@ -22,46 +22,41 @@ public class PlanServiceImpl implements PlanService{
 	@Autowired
 	private PlanRepository planRepo;
 
-	@Override
 	public List<String> getPlanNames() {
 		return planRepo.findPlanNames();
 	}
-
-	@Override
 	public List<String> getPlanStatus() {
 		return planRepo.findPlanStatus();
 	}
 	
-	@Override
 	public List<SearchResponse> search(SearchRequest request) {
 
-		List<SearchResponse> response = new ArrayList<>();
-
-		Plan queryBuilder = new Plan();
+		
+		Plan query = new Plan();
 
 		String planName = request.getPlanName();
 		if (planName != null && !planName.equals("")) {
-			queryBuilder.setPlanName(planName);
+			query.setPlanName(planName);
 		}
 
 		String planStatus = request.getPlanStatus();
 		if (planStatus != null && !planStatus.equals("")) {
-			queryBuilder.setPlanStatus(planStatus);
+			query.setPlanStatus(planStatus);
 		}
 		
-		Example<Plan> example = Example.of(queryBuilder);
+		List<SearchResponse> response = new ArrayList<>();
 
-		List<Plan> entities = planRepo.findAll(example);
-
-		for (Plan entity : entities) {
-			SearchResponse sr = new SearchResponse();
-			BeanUtils.copyProperties(entity, sr);
-			response.add(sr);
+		List<Plan> plan = planRepo.findAll();
+		for(Plan plan2:plan)
+		{
+			SearchResponse sresponse = new SearchResponse();
+			sresponse.setName(plan2.getName());
+			sresponse.setMobile(plan2.getMobile());
+			sresponse.setEmail(plan2.getEmail());
+			sresponse.setGender(plan2.getGender());
+			sresponse.setSsn(plan2.getSsn());
+			response.add(sresponse);
 		}
-
 		return response;
 	}
-
-	
-
 }
