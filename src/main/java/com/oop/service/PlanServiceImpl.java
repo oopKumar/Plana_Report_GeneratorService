@@ -22,9 +22,11 @@ public class PlanServiceImpl implements PlanService{
 	@Autowired
 	private PlanRepository planRepo;
 
+	
 	public List<String> getPlanNames() {
 		return planRepo.findPlanNames();
 	}
+	
 	public List<String> getPlanStatus() {
 		return planRepo.findPlanStatus();
 	}
@@ -32,29 +34,29 @@ public class PlanServiceImpl implements PlanService{
 	public List<Response> search(Request request) {
 
 		
-		Plan query = new Plan();
+		Plan plan = new Plan();
 
 		String planName = request.getPlanName();
 		if (planName != null && !planName.equals("")) {
-			query.setPlanName(planName);
+			plan.setPlanName(planName);
 		}
 
 		String planStatus = request.getPlanStatus();
 		if (planStatus != null && !planStatus.equals("")) {
-			query.setPlanStatus(planStatus);
+			plan.setPlanStatus(planStatus);
 		}
 		
 		List<Response> response = new ArrayList<>();
 
-		List<Plan> plan = planRepo.findAll();
-		for(Plan plan2:plan)
+		List<Plan> plan2 = planRepo.findAll();
+		for(Plan p:plan2)
 		{
 			Response sresponse = new Response();
-			sresponse.setName(plan2.getName());
-			sresponse.setMobile(plan2.getMobile());
-			sresponse.setEmail(plan2.getEmail());
-			sresponse.setGender(plan2.getGender());
-			sresponse.setSsn(plan2.getSsn());
+			sresponse.setName(p.getName());
+			sresponse.setMobile(p.getMobile());
+			sresponse.setEmail(p.getEmail());
+			sresponse.setGender(p.getGender());
+			sresponse.setSsn(p.getSsn());
 			response.add(sresponse);
 		}
 		return response;

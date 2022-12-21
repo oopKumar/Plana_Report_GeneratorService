@@ -37,5 +37,4 @@ public class PlanController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	
 }
