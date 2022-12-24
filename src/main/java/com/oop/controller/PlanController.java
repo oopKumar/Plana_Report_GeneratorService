@@ -1,6 +1,9 @@
 package com.oop.controller;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +18,7 @@ import com.oop.service.PlanService;
 
 @RestController
 public class PlanController {
-	
+
 	@Autowired
 	private PlanService planService;
 
@@ -30,11 +33,35 @@ public class PlanController {
 		List<String> status = planService.getPlanStatus();
 		return new ResponseEntity<>(status, HttpStatus.OK);
 	}
+
 	
-	@PostMapping("/search")
-	public ResponseEntity<List<Response>> search(@RequestBody Request request) {
-		List<Response> response = planService.search(request);
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
-	
+	  @PostMapping("/search") public ResponseEntity<List<Response>>
+	  search(@RequestBody Request request) { 
+		  List<Response> response =planService.search(request); 
+	  return new ResponseEntity<>(response,HttpStatus.OK);
+	  }
+	  
+	  @GetMapping("/excel")
+		public void excelReport(HttpServletResponse response) throws Exception{
+			response.setContentType("application/octet-stream");
+			
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachment;filename=plan.xls";
+			
+			response.setHeader(headerKey, headerValue);
+			
+			planService.generateExcel(response);
+		}
+		
+		@GetMapping("/pdf")
+		public void pdfReport(HttpServletResponse response) throws Exception {
+			response.setContentType("application/pdf");
+			
+			String headerKey = "Content-Disposition";
+			String headerValue = "attachment;filename=plan.pdf";
+			
+			response.setHeader(headerKey, headerValue);
+			
+			planService.generatePdf(response);
+		}
 }
